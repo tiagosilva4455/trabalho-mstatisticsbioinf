@@ -1,0 +1,167 @@
+---
+output:
+  html_document: default
+  html_notebook: default
+---
+
+------------------------------------------------------------------------
+
+title: "Trabalho de Grupo" output: html_notebook ---´ 
+
+## Grupo: 
+Joana Araujo pg, Mariana Braga pg, Tiago Silva pg49849
+
+# Introdução
+
+Neste trabalho decicimos analisar um dataset de um estudo que pretendia descobrir o efeito que o uso da internet tem na depressão. Este dataset foi de um estudo que se realizou durante 2 anos em que os participantes usufruiam de internet gratuita. Este estudo teve em conta o grau de depressão antes de se iniciar o estudo do participante, assim como o género a idade, etnia, salário anual do agregado e o tamanho do agregado. Depois do estudo foi apresentada uma média do uso de internet por semana em horas e o grau de depressão pós os dois anos.
+
+## Remoção de Valores nãoo atribuidos do dataset
+```{r}
+dati= na.omit(depression.and.the.internet)
+dati
+```
+## Análise Exploratoria
+
+### Classificação das variaveis
+
+
+
+
+
+
+
+### Variavel Internet.Use..mean.hours.per.week
+```{r}
+summary(dati$Internet.use..mean.hours.per.week.)
+
+range (dati$Internet.use..mean.hours.per.week.)
+
+sd(dati$Internet.use..mean.hours.per.week.)
+var(dati$Internet.use..mean.hours.per.week.)
+fivenum((dati$Internet.use..mean.hours.per.week.))
+```
+
+
+```{r}
+hist(dati$Internet.use..mean.hours.per.week., main = "Media de horas por semana na internet",xlab = "Horas")
+```
+### Variavel Depression.Before
+Grau de depressão antes do estudo
+```{r}
+summary(dati$DepressionBefore)
+
+range (dati$DepressionBefore)
+
+sd(dati$DepressionBefore)
+var(dati$DepressionBefore)
+fivenum((dati$DepressionBefore))
+```
+```{r}
+hist(dati$DepressionBefore, main = "Níveis de depressão antes do estudo",xlab = "Grau de Depressão")
+```
+
+### Variavel Depression.after
+Grau de depressão pós o estudo
+```{r}
+summary(dati$DepressionAfter)
+
+range (dati$DepressionAfter)
+
+sd(dati$DepressionAfter)
+var(dati$DepressionAfter)
+fivenum((dati$DepressionAfter))
+```
+```{r}
+hist(dati$DepressionAfter, main = "Níveis de depressão depois do estudo",xlab = "Grau de Depressão")
+```
+### Variavel Gender
+```{r}
+gender = table(dati$Gender)
+gender
+```
+```{r}
+pie(gender, labels = names(gender),col=c("pink","cadetblue1"), main = "Género dos participantes")
+```
+```{r}
+barplot(gender, col = c("pink","cadetblue1"), main = "Género dos participantes" )
+```
+### Variavel Race..white...1..minority...0
+Variavel que indica a etnia
+```{r}
+Etnia = table(dati$Race..white...1..minority...0.)
+names(Etnia) = c("Minority","White")
+Etnia
+
+```
+
+
+```{r}
+pie(Etnia,col=c("burlywood","antiquewhite1"), main = "Etnia dos participantes")
+
+```
+
+
+```{r}
+barplot(Etnia, col = c("pink","cadetblue1"), main = "Etnia dos participantes" )
+```
+### Variavel Age
+Variavel que indica o estagio da vida do participante
+```{r}
+age = table(dati$Age)
+age
+```
+
+
+```{r}
+pie(age, main = "Estágio de vida dos participantes")
+```
+
+
+```{r}
+barplot(age, main = "Estágio de vida dos participantes" )
+```
+### Variavel Household.Income...000
+Variavel do salário anual do agregado em milhares
+
+```{r}
+summary(dati$Household.income...000.)
+
+range (dati$Household.income...000.)
+
+sd(dati$Household.income...000.)
+var(dati$Household.income...000.)
+fivenum((dati$Household.income...000.))
+```
+
+
+```{r}
+hist(dati$Household.income...000., main = "Salário Anual do Agregado dos Participantes",xlab = "Salário (em milhares)")
+```
+```{r}
+sal= table(dati$Household.income...000.)
+barplot(sal,main ="Salário Anual do Agregado dos Participantes", xlab="Salário (em milhares)", ylab = "Frequência", cex.names = 0.70,las= 2)
+```
+### Variavel Household.size
+Variavel que indica o tamanho do agregado familiar do participante
+```{r}
+summary(dati$Household.size)
+
+range (dati$Household.size)
+
+sd(dati$Household.size)
+var(dati$Household.size)
+fivenum((dati$Household.size))
+```
+
+
+```{r}
+hist(dati$Household.size, main = "Salário Anual do Agregado dos Participantes",xlab = "Número de pessoas do agregado")
+
+```
+
+
+```{r}
+agr= table(dati$Household.size)
+barplot(agr,main ="Tamanho do Agregado dos Participantes", xlab="Número de pessoas do agregado", ylab = "Frequência", cex.names = 1,las= 2)
+```
+
