@@ -1,56 +1,62 @@
+---
+title: "Trabalho de Grupo - MBIOINF"
+output: html_notebook
+---
 
-# Métodos Esttísticos para Bioinformáticos
+# Métodos Estatísticos para Bioinformáticos
 ## Grupo: 
-Joana Araujo pg, Mariana Braga pg, Tiago Silva pg49849
+Joana Araujo PG49836 \
+Mariana Braga PG45966 \
+Tiago Silva PG49849 \
 
 # Introdução
 
-Neste trabalho decicimos analisar um dataset de um estudo que pretendia descobrir o efeito que o uso da internet tem na depressão. Este dataset foi de um estudo que se realizou durante 2 anos em que os participantes usufruiam de internet gratuita. Este estudo teve em conta o grau de depressão antes de se iniciar o estudo do participante, assim como o género a idade, etnia, salário anual do agregado e o tamanho do agregado. Depois do estudo foi apresentada uma média do uso de internet por semana em horas e o grau de depressão pós os dois anos.
+Neste trabalho decicimos analisar um dataset de um estudo que pretendia descobrir o efeito que o uso de internet tem na depressão.Este dataset foi de um estudo que se realizou durante 2 anos em que os participantes usufruiam de internet gratuita. Este estudo teve em conta o grau de depressão antes de se iniciar o estudo do participante, assim como o género a idade, etnia, salário anual do agregado e o tamanho do agregado. Depois do estudo foi apresentada uma média do uso de internet por semana em horas e o grau de depressão pós os dois anos.
 
-## Remoção de Valores não atribuidos do dataset
+## Remoção de Valores não atribuidos do dataset:
 
 ```{r}
 data = read.delim("depression-and-the-internet.txt", header = TRUE)
 dati= na.omit(data)
 dati
 ```
-## Análise Exploratoria
+## Análise Exploratória
 
-### Classificação das variaveis
+### Classificação das variáveis:
 
-Variaveis independentes:
+**Variáveis independentes:**
 
-  Internet.use..mean.hours.per.week
-    Media do numero de horas de uso de internet por semana - ordinal
+  - *Internet.use..mean.hours.per.week*\
+    Média do número de horas de uso de internet por semana - ordinal\
+    \
+  - *DepressionBefore*\
+    Grau de depressão antes do uso de internet - ordinal\
+    \
+  - *Gender*\
+    Género do Participante - nominal\
+    \
+  - *Race..white...1..minority...0*\
+    Etnia do participante - nominal\
+    \
+  - *Age*\
+    Estágio da vida do participante - nominal\
     
-  DepressionBefore
-    Grau de depressão antes do uso de internet - ordinal
-    
-  Gender
-    Género do Participante - nominal
-    
-  Race..white...1..minority...0
-    Etnia do participante - nominal
-    
-  Age
-    Estágio da vida do participante - nominal
-    
-  Household.income...000
-    Salário do Agregado familiar Anual - ordinal
-    
-  Household.size
-    Tamanho do Agregado Familiar do Participante - ordinal
+  - *Household.income...000*\
+    Salário do Agregado familiar Anual - ordinal\
+    \
+  - *Household.size*\
+    Tamanho do Agregado Familiar do Participante - ordinal\
+\
 
-
-Variaveis dependentes:
+**Variáveis dependentes:**\
   
-  DepressionAfter
-    Grau de depressão após o uso de internet - ordinal
-    
-DepressionBefore e DepressionAfter são valores contínuos.
+  - *DepressionAfter*\
+    Grau de depressão após o uso de internet - ordinal\
 
-### Variavel Internet.Use..mean.hours.per.week
+**DepressionBefore e DepressionAfter são valores contínuos.**
 
+### Variável Internet.Use..mean.hours.per.week
+\
 ```{r}
 summary(dati$Internet.use..mean.hours.per.week.)
 
@@ -60,16 +66,15 @@ sd(dati$Internet.use..mean.hours.per.week.)
 var(dati$Internet.use..mean.hours.per.week.)
 fivenum((dati$Internet.use..mean.hours.per.week.))
 ```
-
-
+\
 ```{r}
 hist(dati$Internet.use..mean.hours.per.week., main = "Media de horas por semana na internet",xlab = "Horas")
 ```
 
-### Variavel Depression.Before
-
-Grau de depressão antes do uso de internet
-
+### Variável Depression.Before
+\
+Grau de depressão antes do uso de internet.\
+\
 ```{r}
 summary(dati$DepressionBefore)
 
@@ -83,10 +88,10 @@ fivenum((dati$DepressionBefore))
 hist(dati$DepressionBefore, main = "Níveis de depressão antes do estudo",xlab = "Grau de Depressão")
 ```
 
-### Variavel Depression.after
-
-Grau de depressão após o uso de internet
-
+### Variável Depression.after
+\
+Grau de depressão após o uso de internet.\
+\
 ```{r}
 summary(dati$DepressionAfter)
 
@@ -100,8 +105,10 @@ fivenum((dati$DepressionAfter))
 hist(dati$DepressionAfter, main = "Níveis de depressão depois do estudo",xlab = "Grau de Depressão")
 ```
 
-### Variavel Gender
-
+### Variável Gender
+\
+A variável Gender indica o género do participante, toma a designação "male" quando o participante é do género masculino e "female" quando é do género feminino. 
+\
 ```{r}
 gender = table(dati$Gender)
 gender
@@ -113,51 +120,47 @@ pie(gender, labels = names(gender),col=c("pink","cadetblue1"), main = "Género d
 barplot(gender, col = c("pink","cadetblue1"), main = "Género dos participantes" )
 ```
 
-### Variavel Race..white...1..minority...0
-
-Variavel que indica a etnia
-
+### Variável Race..white...1..minority...0
+\
+Variável que indica a etnia do participante. O seu valor é 1 quando o participante é branco e 0 quando o participante pertence a uma minoria.\
+\
 ```{r}
 Etnia = table(dati$Race..white...1..minority...0.)
 names(Etnia) = c("Minority","White")
 Etnia
 
 ```
-
-
+\
 ```{r}
 pie(Etnia,col=c("burlywood","antiquewhite1"), main = "Etnia dos participantes")
 
 ```
-
-
+\
 ```{r}
 barplot(Etnia, col = c("pink","cadetblue1"), main = "Etnia dos participantes" )
 ```
 
-### Variavel Age
-
-Variavel que indica o estagio da vida do participante
-
+### Variável Age
+\
+Variavel que indica o estagio da vida do participante, toma a designação de "Adult" quando o participante é adulto e "Teen" quando o participante é um adolescente.
+\
 ```{r}
 age = table(dati$Age)
 age
 ```
-
-
+\
 ```{r}
 pie(age, main = "Estágio de vida dos participantes")
 ```
-
-
+\
 ```{r}
 barplot(age, main = "Estágio de vida dos participantes" )
 ```
 
-### Variavel Household.Income...000
-
-Variavel do salário anual do agregado em milhares
-
+### Variável Household.Income...000
+\
+Variavel do salário anual do agregado familiar em milhares.
+\
 ```{r}
 summary(dati$Household.income...000.)
 
@@ -167,8 +170,7 @@ sd(dati$Household.income...000.)
 var(dati$Household.income...000.)
 fivenum((dati$Household.income...000.))
 ```
-
-
+\
 ```{r}
 hist(dati$Household.income...000., main = "Salário Anual do Agregado dos Participantes",xlab = "Salário (em milhares)")
 ```
@@ -176,11 +178,10 @@ hist(dati$Household.income...000., main = "Salário Anual do Agregado dos Partic
 sal= table(dati$Household.income...000.)
 barplot(sal,main ="Salário Anual do Agregado dos Participantes", xlab="Salário (em milhares)", ylab = "Frequência", cex.names = 0.70,las= 2)
 ```
-
-### Variavel Household.size
-
-Variavel que indica o tamanho do agregado familiar do participante
-
+### Variável Household.size
+\
+Variável que indica o tamanho do agregado familiar do participante.
+\
 ```{r}
 summary(dati$Household.size)
 
@@ -205,56 +206,52 @@ db = dati$DepressionBefore
 ```
 
 ### Depressão por género
-
-H0: O grau de depressão não é correlacionado com  género do participante.
-
-H1: O grau de depressão é correlacionado com género do participante.
-
+\
+H0: O grau de depressão não é correlacionado com  género do participante.\
+H1: O grau de depressão é correlacionado com género do participante.\
+\
 ```{r}
 model1b = lm (db~dati$Gender)
 model1b
 summary(model1b)
 plot(model1b)
 ```
-
-Como o p-value é maior do que 0.05, não podemos rejeitar a H0, pelo que existem evidências de que antes do uso de internet o grau de depressão pode não ter qualquer correlação com o género do participante.
+\
+Como o p-value é maior do que 0.05, não podemos rejeitar a H0, pelo que existem evidências de que antes do uso de internet o grau de depressão pode não ter qualquer correlação com o género do participante.\
 
 ### Depressão por etnia.
-
-H0: O grau de depressão não é correlacionado com a etnia do participante.
-
-H1: O grau de depressão é correlacionado com a etnia do participante.
-
+\
+H0: O grau de depressão não é correlacionado com a etnia do participante.\
+H1: O grau de depressão é correlacionado com a etnia do participante.\
+\
 ```{r}
 model2b =lm(db~dati$Race..white...1..minority...0.)
 model2b
 summary(model2b)
 plot(model2b)
 ```
-
-Como o p-value é maior do que 0.05, não podemos rejeitar a H0, pelo que existem evidência de antes do uso de internet o grau de depressão pode não ter qualquer correlação com a etnia do participante.
+\
+Como o p-value é maior do que 0.05, não podemos rejeitar a H0, pelo que existem evidência de antes do uso de internet o grau de depressão pode não ter qualquer correlação com a etnia do participante.\
 
 ### Depressão por idade.
-
-H0: O grau de depressão não é correlacionado com a idade do participante.
-
-H1: O grau de depressão é correlacionado com a idade do participante.
-
+\
+H0: O grau de depressão não é correlacionado com a idade do participante.\
+H1: O grau de depressão é correlacionado com a idade do participante.\
+\
 ```{r}
 model3b = lm(db~dati$Age)
 model3b
 summary(model3b)
 plot(model3b)
 ```
-
-Como o p-value é menor do que 0.05,podemos rejeitar a H0, o que nos sugere a existência de evidência que nos pode indicar uma correlação do grau de depressão com o estagio da vida do participante antes do uso de internet.
+\
+Como o p-value é menor do que 0.05,podemos rejeitar a H0, o que nos sugere a existência de evidência que nos pode indicar uma correlação do grau de depressão com o estagio da vida do participante antes do uso de internet.\
 
 ### Depressão por salário.
-
-H0: O grau de depressão não é correlacionado com o salário do agregado familiar do participante.
-
-H1: O grau de depressão é correlacionado com o salário do agregado familiar do participante.
-
+\
+H0: O grau de depressão não é correlacionado com o salário do agregado familiar do participante.\
+H1: O grau de depressão é correlacionado com o salário do agregado familiar do participante.\
+\
 ```{r}
 model4b=lm(db~dati$Household.income...000.)
 model4b
@@ -262,50 +259,48 @@ summary(model4b)
 plot(model4b)
 
 ```
-
-Como o p-value é maior do que 0.05, não podemos rejeitar a H0, pelo que existem evidencias que antes do uso de internet o grau de depressão não está correlacionado com o salário do agregado familiar do participante.
+\
+Como o p-value é maior do que 0.05, não podemos rejeitar a H0, pelo que existem evidencias que antes do uso de internet o grau de depressão não está correlacionado com o salário do agregado familiar do participante.\
 
 ### Depression por tamanho do agregado familiar
-
-H0: O grau de depressão é correlacionado com o tamanho do agregado familiar do participante.
-
-H1: O grau de depressão não é correlacionado com o tamanho do agregado familiar do participante.
-
+\
+H0: O grau de depressão é correlacionado com o tamanho do agregado familiar do participante.\
+H1: O grau de depressão não é correlacionado com o tamanho do agregado familiar do participante.\
+\
 ```{r}
 model5b=lm(db~dati$Household.size)
 model5b
 summary(model5b)
 plot(model5b)
 ```
-
-Como o p-value é maior do que 0.05, não podemos rejeitar a H0, pelo que existem evidencias que antes do uso de internet o grau de depressão não tem correlação com o tamanho do agregado familiar do participante.
+\
+Como o p-value é maior do que 0.05, não podemos rejeitar a H0, pelo que existem evidencias que antes do uso de internet o grau de depressão não tem correlação com o tamanho do agregado familiar do participante.\
 
 ## Após o estudo
-
+\
 ```{r}
 da=dati$DepressionAfter
 ```
 
 ### Depressão com o uso de internet
-
-H0: O grau de depressão nao é correlacionado com o numero de horas médias por semana de uso de internet do participante
-
-H1: O grau de depressão é correlacionado com o numero de horas médias por semana de uso de internet do participante
-
+\
+H0: O grau de depressão nao é correlacionado com o numero de horas médias por semana de uso de internet do participante.\
+H1: O grau de depressão é correlacionado com o numero de horas médias por semana de uso de internet do participante.\
+\
 ```{r}
 model=lm(dati$Internet.use..mean.hours.per.week.~dati$DepressionAfter)
 model
 summary(model)
 plot(model)
 ```
+\
+Como o p-value é menor do que 0.05, podemos rejeitar a H0, pelo que há evidencia que nos indica uma correlação do grau de depressão com o o numero de horas médias por semana de uso de internet do participante.\
 
-Como o p-value é menor do que 0.05, podemos rejeitar a H0, pelo que há evidencia que nos indica uma correlação do grau de depressão com o o numero de horas médias por semana de uso de internet do participante.´
-
-## Depressão Antes e Apos
-
-H0: O grau de depressão antes do uso de internet não é correlacionado com o grau de depressão depois do uso de internet.
-H1: O grau de depressão antes do uso de internet é correlacionado com o grau de depressão depois do uso de internet.
-
+## Depressão Antes e Após
+\
+H0: O grau de depressão antes do uso de internet não é correlacionado com o grau de depressão depois do uso de internet.\
+H1: O grau de depressão antes do uso de internet é correlacionado com o grau de depressão depois do uso de internet.\
+\
 ```{r}
 modelab = lm(da~db)
 modelab
@@ -313,131 +308,207 @@ summary(modelab)
 plot(modelab)
 
 ```
+\
+Como o p-value é menor do que 0.05, podemos rejeitar a H0, pelo que há evidencia da existência de uma correlação do grau de depressão antes do uso de internet com o grau de depressão depois do uso de internet.\
 
-Como o p-value é menor do que 0.05, podemos rejeitar a H0, pelo que há evidencia da existência de uma correlação do grau de depressão antes do uso de internet com o grau de depressão depois do uso de internet.
-
-## Correlações com interações de variaveis
+# Correlações com interações de variáveis
 
 ## Depression After
 
-### Depressão por horas de uso por genero
-
-H0: O grau de depressão antes do uso de internet não é correlacionado com o grau de depressão depois do uso de internet e o género.
-H1: O grau de depressão antes do uso de internet é correlacionado com o grau de depressão depois do uso de internet e o género.
-
+### Depressão com horas de uso por genero
+\
+H0: O grau de depressão depois do uso de internet não é correlacionado com o número médio de horas de uso de internet por semana e o género.\
+H1: O grau de depressão depois do uso de internet é correlacionado com o número médio de horas de uso de internet por semana e o género.\
+\
 ```{r}
 model21 = lm(da~dati$Internet.use..mean.hours.per.week.+dati$Gender)
 model21
 summary (model21)
 plot(model21)
 ```
-
-Como o p-value é menor do que 0.05, podemos rejeitar a H0, pelo que há evidencias que nos pode indicar uma correlação do grau de depressão com o número médio de horas de uso de internet por semana e o género do participante.
+\
+Como o p-value é menor do que 0.05, podemos rejeitar a H0, pelo que há evidencias que nos pode indicar uma correlação do grau de depressão com o número médio de horas de uso de internet por semana e o género do participante.\
 
 ### Depressão com horas de uso por etnia
-
+\
+H0: O grau de depressão depois do uso de internet não é correlacionado com o número médio de horas de uso de internet por semana e a etnia.\
+H1: O grau de depressão depois do uso de internet é correlacionado com o número médio de horas de uso de internet por semana e a etnia.\
+\
 ```{r}
 model22 = lm (da~dati$Internet.use..mean.hours.per.week.+dati$Race..white...1..minority...0.) 
 model22
 summary(model22)
 plot(model22)
 ```
-
+\
+Como o p-value é menor do que 0.05, podemos rejeitar a H0, pelo que há evidencias que nos pode indicar uma correlação do grau de depressão com o número médio de horas de uso de internet por semana e a etnia do participante.\
 
 ### Depressão com horas de uso por idade
-
+\
+H0: O grau de depressão depois do uso de internet não é correlacionado com o número médio de horas de uso de internet por semana e o estágio de vida.\
+H1: O grau de depressão depois do uso de internet é correlacionado com o número médio de horas de uso de internet por semana e o estágio de vida.\
+\
 ```{r}
 model23 = lm(da~dati$Internet.use..mean.hours.per.week.+dati$Age)
 model23
 summary(model23)
 plot(model23)
 ```
+\
+Como o p-value é menor do que 0.05, podemos rejeitar a H0, pelo que há evidencias que nos pode indicar uma correlação do grau de depressão com o número médio de horas de uso de internet por semana e o estágio de vida do participante.\
 
-
-### Depressao com horas de uso por income
-
+### Depressao com horas de uso por salário
+\
+H0: O grau de depressão depois do uso de internet não é correlacionado com o número médio de horas de uso de internet por semana e o salário anual do agregado familiar.\
+H1: O grau de depressão depois do uso de internet é correlacionado com o número médio de horas de uso de internet por semana e o salário anual do agregado familiar.\
+\
 ```{r}
 model24 = lm(da~dati$Internet.use..mean.hours.per.week.+dati$Household.income...000.)
 model24
 summary(model24)
 plot(model24)
 ```
+\
+Como o p-value é menor do que 0.05, podemos rejeitar a H0, pelo que há evidencias que nos pode indicar uma correlação do grau de depressão com o número médio de horas de uso de internet por semana e o salário anual do agregado familiar do participante.\
 
 ### Depressão com horas de uso por tamanho do agregado
+\
+H0: O grau de depressão depois do uso de internet não é correlacionado com o número médio de horas de uso de internet por semana e o tamanho do agregado familiar.\
+H1: O grau de depressão depois do uso de internet é correlacionado com o número médio de horas de uso de internet por semana e o tamanho do agregado familiar.\
+\
 ```{r}
 model25 = lm (da~dati$Internet.use..mean.hours.per.week.+dati$Household.size)
 model25
 summary(model25)
 plot(model25)
 ```
-
+\
+Como o p-value é menor do que 0.05, podemos rejeitar a H0, pelo que há evidencias que nos pode indicar uma correlação do grau de depressão com o número médio de horas de uso de internet por semana e o tamanho do agregado familiar do participante.\
 
 ### Depressão com género e idade
+\
+H0: O grau de depressão depois do uso de internet não é correlacionado com o género e estágio de vida.\
+H1: O grau de depressão depois do uso de internet é correlacionado com o género e estágio de vida.\
+\
 ```{r}
 model26 = lm (da~dati$Gender+dati$Age)
 model26
 summary(model26)
 plot(model26)
-
+```
+\
+Como o p-value é maior do que 0.05, não podemos rejeitar a H0, pelo que há evidências que nos pode indicar que não há uma correlação do grau de depressão após o uso de internet com o género e estágio de vida\
+\
+```{r}
 interaction.plot(dati$Age,dati$Gender,da)
 ```
-
+\
+Apesar de não haver correlação entre o grau de depressão após o uso de internet com o género e o estágio de vida, é notavel pelo gráfico acima que existe uma interação entre estas variáveis. 
 
 ### Depressão com género e etnia
+\
+H0: O grau de depressão depois do uso de internet não é correlacionado com o género e etnia.\
+H1: O grau de depressão depois do uso de internet é correlacionado com o género e etnia.\
+\
 ```{r}
 model27=lm(da~dati$Gender+dati$Race..white...1..minority...0.)
 model27
 summary(model27)
 plot(model27)
-
+```
+\
+Como o p-value é maior do que 0.05, não podemos rejeitar a H0, pelo que há evidências que nos pode indicar que não há uma correlação do grau de depressão com o género e etnia.\
+\
+```{r}
 interaction.plot(dati$Race..white...1..minority...0.,dati$Gender,da)
 ```
-
+\
+Apesar de não haver correlação entre o grau de depressão após o uso de internet com o género e a etnia é notável pelo gráfico acima que existe uma interação entre estas variáveis. \
 
 ### Depressão com idade e etnia
+\
+H0: O grau de depressão depois do uso de internet não é correlacionado com o estágio de vida e a etnia.\
+H1: O grau de depressão depois do uso de internet é correlacionado com o estágio de vida e a etnia.\
+\
 ```{r}
 model28 =lm(da ~dati$Age+dati$Race..white...1..minority...0.)
 model28
 summary(model28)
 plot(model28)
+```
+\
+Como o p-value é maior do que 0.05, não podemos rejeitar a H0, pelo que há evidências que nos pode indicar que não há uma correlação do grau de depressão apos o uso de internet com o estágio de vida e a etnia.
+\
+```{r}
 interaction.plot(dati$Age,dati$Race..white...1..minority...0.,da)
 ```
-
+\
+Para além de não haver correrlação, este gráfico demonstra que não existe interação entre estas variáveis. \
 
 ## Depression Before
+
+
 ### Depressão com género e idade
+\
+H0: O grau de depressão antes do uso de internet não é correlacionado com o género e etnia.\
+H1: O grau de depressão antes do uso de internet é correlacionado com o género e etnia.\
+\
 ```{r}
 model26 = lm (db~dati$Gender+dati$Age)
 model26
 summary(model26)
 plot(model26)
-
+```
+\
+Como o p-value é menor do que 0.05, rejeitamos H0, pelo que há evidências que nos pode indicar a existência de uma correlação do grau de depressão antes do uso de internet com o genero e o estágio de vida.\
+\
+```{r}
 interaction.plot(dati$Age,dati$Gender,db)
 ```
-
+\
+Apesar de existir uma correlação este grafico indica que não existe nenhuma interação entre as variaveis.
 
 ### Depressão com género e etnia
+\
+H0: O grau de depressão antes do uso de internet não é correlacionado com o género e etnia.\
+H1: O grau de depressão antes do uso de internet é correlacionado com o género e etnia.\
+\
 ```{r}
 model27=lm(db~dati$Gender+dati$Race..white...1..minority...0.)
 model27
 summary(model27)
 plot(model27)
-
+```
+\
+Como o p-value é maior do que 0.05, não podemos rejeitar a H0, pelo que há evidências que nos pode indicar que não há uma correlação do grau de depressão antes do uso de internet com o género e a etnia.
+\
+```{r}
 interaction.plot(dati$Race..white...1..minority...0.,dati$Gender,db)
 ```
-
+\
+Porém apesar de existirem evidências de não haver correlação, este gráfico demontra a existencia de uma interação entre as variaveis.
 
 ### Depressão com idade e etnia
+\
+H0: O grau de depressão antes do uso de internet não é correlacionado com o género e etnia.\
+H1: O grau de depressão antes do uso de internet é correlacionado com o género e etnia.\
+\
 ```{r}
 model28 =lm(db ~dati$Age+dati$Race..white...1..minority...0.)
 model28
 summary(model28)
 plot(model28)
+```
+\
+Como o p-value é menor do que 0.05, rejeitamos H0, pelo que há evidências que nos pode indicar a existência de uma correlação do grau de depressão antes do uso de internet com o estágio de vida e a etnia.\
+\
+```{r}
 interaction.plot(dati$Age,dati$Race..white...1..minority...0.,db)
 ```
+\
+Para além de existir evidencias de correlação, este grafico diz-no que existe tambem uma interção entre as variaveis.
 
 #Correlação da variavel dependente com a interação entre todas as variaveis independente exceto DepressionBefore
-
 ```{r}
 model_final = lm (da~dati$Internet.use..mean.hours.per.week.+dati$Gender+dati$Race..white...1..minority...0.+dati$Age+dati$Household.income...000.+dati$Household.size)
 model_final
@@ -447,8 +518,8 @@ plot(model_final)
 ```
 
 # Matriz de correlações
-
-Transformar variaveis em valores numéricos.
+\
+Transformar variaveis em valores numéricos.\
 ```{r}
 depression.and.the.internet[depression.and.the.internet=="female"] <- 1.0
 depression.and.the.internet[depression.and.the.internet=="male"] <-0.0
@@ -459,8 +530,9 @@ depression.and.the.internet[depression.and.the.internet=="Teen"] <- 0.0
 DATI <- transform(dati, Age=as.numeric(Age),
                Gender = as.numeric(Gender))
 ```
-
-Matriz de correlações.
+\
+Matriz de correlações.\
+\
 ```{r}
 library(corrplot)
 
@@ -469,7 +541,7 @@ M<-cor(subc, use="complete.obs")
 corrplot(M, order = "AOE", tl.cex = 0.75 )
 corrplot(M, order = "AOE",method = 'number',tl.cex = 0.75)
 ```
-
-Verificamos com esta matriz, um certo grau de correlação entre a depressao depois do uso de internet com o numero de horas médias passadas na mesma e a depressão antes do seu uso.\
-
-Verificamos tambem uma certa correlação, entre o Tamanho do agregado familiar com o seu salario anual, assim como a etnia e o salario anual do respetivo agregado.\
+\
+Verificamos com esta matriz, um certo grau de correlação entre a depressao depois do uso de internet com o numero de horas médias passadas na internet por semana e a depressão antes do seu uso.\
+\
+Verificamos tambem uma certa correlação, entre o Tamanho do agregado familiar com o seu salário anual, assim como a etnia e o salário anual do respetivo agregado.\
