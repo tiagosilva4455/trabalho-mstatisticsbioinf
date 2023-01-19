@@ -1,4 +1,5 @@
 dati= na.omit(depression.and.the.internet) #para omitir valores NA
+dati
 
 #paired = True, segundo a Joana 
 #A media de depressão after é menor do que o before
@@ -215,6 +216,21 @@ summary(model28)
 interaction.plot(dati$Age,dati$Race..white...1..minority...0.,db)
 
 
+# Ajuste devido aos residuais
+#Modelo Logoritmico
+plot(dati$Internet.use..mean.hours.per.week.,log(da))
+
+x= log(dati$Internet.use..mean.hours.per.week.)
+
+y=log(da)
+
+model = lm(log(da)~dati$Internet.use..mean.hours.per.week.)
+model
+
+summary(model)
+par(mfrow=c(2,2))
+plot(model)
+
 #Relacionamento de todos
 
 model_final = lm (da~dati$Internet.use..mean.hours.per.week.+dati$Gender+dati$Race..white...1..minority...0.+dati$Age+dati$Household.income...000.+dati$Household.size)
@@ -222,4 +238,26 @@ model_final
 summary(model_final)
 
 plot(model_final)
+
+depression.and.the.internet[depression.and.the.internet=="female"] <- 1.0
+depression.and.the.internet[depression.and.the.internet=="male"] <-0.0
+
+depression.and.the.internet[depression.and.the.internet=="Adult"] <- 1.0
+depression.and.the.internet[depression.and.the.internet=="Teen"] <- 0.0
+
+DATI <- transform(dati, Age=as.numeric(Age),
+               Gender = as.numeric(Gender))
+        
+DATI
+
+
+class(DATI$Age)
+
+library(corrplot)
+
+subc<-subset(DATI)
+subc
+M<-cor(subc, use="complete.obs")
+corrplot(M, order = "AOE", tl.cex = 0.75 )
+corrplot(M, order = "AOE",method = 'number',tl.cex = 0.75)
 
